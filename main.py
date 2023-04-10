@@ -16,6 +16,20 @@ def print_board(board):
   for line in board:
     print(line)
 
+def feedback(guess, solution):
+  response = guess + " | "
+  for i in range(wordLength):
+    if guess[i] == solution[i]: 
+      # green
+      response += f"[{guess[i].upper()}]"
+    elif guess[i] in solution:
+      #yellow
+      response += f"({guess[i].lower()})"
+    else:
+      response += " - "
+  return response
+
+
 # main gameplay loop
 def play():
   board = ["         _  _  _  _  _ "]
@@ -26,7 +40,6 @@ def play():
   # ask if they want instructions
 
   while tries < maxTries:
-    response = ""
 
     triesLeft = maxTries - tries
     print(f"You have {triesLeft} more tries to guess the secret word.")
@@ -45,20 +58,9 @@ def play():
     elif guess == solution:
       print("You win!")
       break
-    #TODO: make this a helper function to process valid guesses
     elif len(guess) == wordLength and guess in allWords:
       tries += 1
-      response += guess + " | "
-      for i in range(wordLength):
-        if guess[i] == solution[i]: 
-          # green
-          response += f"[{guess[i].upper()}]"
-        elif guess[i] in solution:
-          #yellow
-          response += f"({guess[i].lower()})"
-        else:
-          response += " - "
-      board.append(response)
+      board.append(feedback(guess, solution))
       print_board(board)
     else:
       print(f"Guess must be a real {wordLength}-letter word.")
@@ -67,4 +69,9 @@ def play():
   return
 
 play()
-# input("Play again? Y/N") -> if y: play
+again = "y"
+while again != "n":
+  again = input("Play again? (Y/N): ").lower()
+  if again == "y":
+    play()
+
