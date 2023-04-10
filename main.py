@@ -1,14 +1,27 @@
 from random import choice
 import requests
 
+# VARIABLES #
+#############
+
+maxTries = 6
+wordLength = 5
+
+
+# SET UP DICTIONARIES #
+#######################
+
 commonWords = ["wordy"]
 allWords = ["wordy", "truth", "ghast", "volts", "swing", "swish", "splat", "smash"]
 # commonWords = read small wordlist from github
 # allWords = read large wordlist from local file
 
-maxTries = 6
-wordLength = 5
 # pare down word lists to wordlength words only?
+
+
+# DEFINE FUNCTIONS #
+####################
+
 #TODO: helper function to generate starting board dynamically based on wordLength
 
 # helper function to draw game board
@@ -16,6 +29,7 @@ def print_board(board):
   for line in board:
     print(line)
 
+# helper function to evaluate valid guesses
 def feedback(guess, solution):
   response = guess + " | "
   for i in range(wordLength):
@@ -29,6 +43,13 @@ def feedback(guess, solution):
       response += " - "
   return response
 
+# print opening text at start of game
+def intro():
+  print()
+
+# print instructions
+def instruct():
+  print()
 
 # main gameplay loop
 def play():
@@ -36,11 +57,9 @@ def play():
   solution = choice(commonWords) #choose a random word from short list
   tries = 0
 
-  # print intro
-  # ask if they want instructions
+  #TODO ask if they want instructions
 
   while tries < maxTries:
-
     triesLeft = maxTries - tries
     print(f"You have {triesLeft} more tries to guess the secret word.")
     guess = input("Guess a word: ").lower()
@@ -68,10 +87,14 @@ def play():
     print("No guesses left.")
   return
 
+
+# RUN THE GAME #
+################
+
+intro()
 play()
 again = "y"
 while again != "n":
   again = input("Play again? (Y/N): ").lower()
   if again == "y":
     play()
-
