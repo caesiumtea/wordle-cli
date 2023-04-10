@@ -26,7 +26,8 @@
 2.  need variables for solution, current guess, current response, and all letters tried so far. maybe also all words tried so far, just in case that might be handy somehow, idk
 3.  (loop) ask player for input, maybe using a string method to all caps it
 4.  check if player input equals the solution (ignoring caps) and tell them they win if so
-5.  for each letter, check first whether guess[letter] = solution[letter], then check whether it’s anywhere in the solution
+5.  check if the input is a real word and 5 letters long 
+6.  for each letter, check first whether guess[letter] = solution[letter], then check whether it’s anywhere in the solution
     1.  if match, add capital letter to response
     2.  if partial match, add (letter) or lowercase letter to response
     3.  if no match, add - to response
