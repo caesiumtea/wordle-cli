@@ -11,7 +11,9 @@ wordLength = 5
 # SET UP DICTIONARIES #
 #######################
 
-commonWords = ["wordy"]
+common = requests.get('https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-no-swears.txt')
+commonWords = common.text.split('\n')
+
 allWords = ["wordy", "truth", "ghast", "volts", "swing", "swish", "splat", "smash"]
 # commonWords = read small wordlist from github
 # allWords = read large wordlist from local file
@@ -45,33 +47,44 @@ def feedback(guess, solution):
 
 # print opening text at start of game
 def intro():
-  print()
+  print("WORDLE: Terminal Edition")
+  print(f"You have {maxTries} tries to guess the secret {wordLength}-letter " \
+        "word!")
 
 # print instructions
 def instruct():
-  print()
+  print(f"The goal is to guess the randomly-chosen secret word, which is " \
+        "{wordLength} letters long.")
 
 # main gameplay loop
 def play():
-  board = ["         _  _  _  _  _ "]
+  board = ["Word:    _  _  _  _  _ "]
   solution = choice(commonWords) #choose a random word from short list
   tries = 0
 
-  #TODO ask if they want instructions
+  #ask if they want instructions
+  readHelp = input("Would you like to read the instructions? (Y/N) ").lower()
+  if readHelp == "y":
+    instruct()
+  else:
+    print("You can read instructions later by typing \"!help\" .")
 
   while tries < maxTries:
     triesLeft = maxTries - tries
-    print(f"You have {triesLeft} more tries to guess the secret word.")
+    if triesLeft == 1:
+      print(f"You have {triesLeft} more try to guess the secret word.")
+    else: 
+      print(f"You have {triesLeft} more tries to guess the secret word.")
     guess = input("Guess a word: ").lower()
 
     if guess == "!help":
       print("help")
-      # print instructions 
-      # print board
+      instruct()
+      print_board(board)
     elif guess == "!letters":
       print("letters")
-      # show letters guessed so far
-      # print board
+      #TODO show letters guessed so far
+      print_board(board)
     elif guess == "!quit":
       break
     elif guess == solution:
@@ -91,10 +104,10 @@ def play():
 # RUN THE GAME #
 ################
 
-intro()
-play()
-again = "y"
-while again != "n":
-  again = input("Play again? (Y/N): ").lower()
-  if again == "y":
-    play()
+# intro()
+# play()
+# again = "y"
+# while again != "n":
+#   again = input("Play again? (Y/N): ").lower()
+#   if again == "y":
+#     play()

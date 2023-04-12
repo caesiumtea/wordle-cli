@@ -11,8 +11,8 @@
     ```python
     import requests
     
-    common = requests.get('<https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-usa-no-swears-medium.txt>')
-    common_words = common.text.split('\\n')
+    common = requests.get('https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-no-swears.txt')
+    common_words = common.text.split('\n')
     ```
     
 -   read in a word list for guesses and convert to a list
@@ -38,3 +38,18 @@
          _  _  _  _  _
 guess | (g)[U](e) -  -
 ```
+
+## TODO
+[] add BOTH dictonaries
+    [] requests
+    [] file operations
+[] write the instructions and welcome message
+[] tracking letters guessed
+    [] and letters not yet guessed
+[] change the length of words
+    [] function to generate the blank board string
+    [] ask the user how long 
+    [] ask the number of tries???
+[?] maybe process the dicitonaries to only have words of the right length
+
+
