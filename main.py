@@ -11,14 +11,23 @@ wordLength = 5
 # SET UP DICTIONARIES #
 #######################
 
+commonWords = []
 common = requests.get('https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-no-swears.txt')
-commonWords = common.text.split('\n')
+commonDict = common.text.splitlines()
+for word in commonDict:
+  if len(word) == wordLength:
+    commonWords.append(word)  
 
-allWords = ["wordy", "truth", "ghast", "volts", "swing", "swish", "splat", "smash"]
-# commonWords = read small wordlist from github
-# allWords = read large wordlist from local file
-
-# pare down word lists to wordlength words only?
+allWords = []
+longDict = open("data/3of6game.txt", "r")
+try:
+  for line in longDict:
+    line = line.strip("\n$")
+    if len(line) == wordLength:
+      allWords.append(line)
+finally:
+  longDict.close()
+print(allWords[0:30])
 
 
 # DEFINE FUNCTIONS #
@@ -51,6 +60,13 @@ def intro():
   print(f"You have {maxTries} tries to guess the secret {wordLength}-letter " \
         "word!")
 
+  #ask if they want instructions
+  readHelp = input("Would you like to read the instructions? (Y/N) ").lower()
+  if readHelp == "y":
+    instruct()
+  else:
+    print("You can read instructions later by typing \"!help\" .")
+
 # print instructions
 def instruct():
   print(f"The goal is to guess the randomly-chosen secret word, which is " \
@@ -61,13 +77,7 @@ def play():
   board = ["Word:    _  _  _  _  _ "]
   solution = choice(commonWords) #choose a random word from short list
   tries = 0
-
-  #ask if they want instructions
-  readHelp = input("Would you like to read the instructions? (Y/N) ").lower()
-  if readHelp == "y":
-    instruct()
-  else:
-    print("You can read instructions later by typing \"!help\" .")
+  print_board()
 
   while tries < maxTries:
     triesLeft = maxTries - tries
@@ -104,8 +114,8 @@ def play():
 # RUN THE GAME #
 ################
 
-# intro()
-# play()
+intro()
+play()
 # again = "y"
 # while again != "n":
 #   again = input("Play again? (Y/N): ").lower()

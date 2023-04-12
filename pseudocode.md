@@ -40,9 +40,9 @@ guess | (g)[U](e) -  -
 ```
 
 ## TODO
-[] add BOTH dictonaries
-    [] requests
-    [] file operations
+[x] add BOTH dictonaries
+    [x] requests
+    [x] file operations
 [] write the instructions and welcome message
 [] tracking letters guessed
     [] and letters not yet guessed
@@ -51,5 +51,4 @@ guess | (g)[U](e) -  -
     [] ask the user how long 
     [] ask the number of tries???
 [?] maybe process the dicitonaries to only have words of the right length
-
-
+[] COLORS
