@@ -43,13 +43,18 @@ guess | (g)[U](e) -  -
 [x] add BOTH dictonaries
     [x] requests
     [x] file operations
-[] write the instructions and welcome message
+[x] write the instructions and welcome message
 [] tracking letters guessed
-    [] and letters not yet guessed
+    [x] letters not yet guessed
+    [] letters not in the word
+    [] list yellow letters
+    [] list green letters
+[] fix it so that the "yellow" letters don't exceed actual occurrences of that letter (see "oozes" example)
 [] change the length of words
     [] function to generate the blank board string
-    [] ask the user how long 
+    [] ask the user how long (either let them enter a number OR just ask easy/medium/hard)
     [] ask the number of tries???
-[?] maybe process the dicitonaries to only have words of the right length
-[] COLORS
-[] use curses instead of regular UI
+[x] maybe process the dicitonaries to only have words of the right length
+    [] refactor this using list comprehensions???
+[] COLORS - termcolor package?
+[?] use curses instead of regular UI

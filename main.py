@@ -99,7 +99,7 @@ def instruct():
 
 # main gameplay loop
 def play():
-  board = ["Word:    _  _  _  _  _ "]
+  board = ["Word:    -  -  -  -  - "]
   solution = choice(commonWords) #choose a random word from short list
   tries = 0
   lettersGuessed = set()
