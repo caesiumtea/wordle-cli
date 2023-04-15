@@ -41,17 +41,22 @@ def print_board(board):
 
 # for valid guesses, loop through word to generate feedback
 def feedback(guess, solution):
-  response = guess + " | "
+  response = " | "
   for i in range(wordLength):
     if guess[i] == solution[i]: 
       # green
       response += f"[{guess[i].upper()}]"
     elif guess[i] in solution:
       #yellow
-      response += f"({guess[i].lower()})"
+      inResponse = response.count(guess[i])
+      inWord = solution.count(guess[i])
+      if inResponse < inWord:
+        response += f"({guess[i].lower()})"
+      else:
+        response += " - "
     else:
       response += " - "
-  return response
+  return guess + response
 
 # print opening text at start of game
 def intro():
@@ -159,10 +164,13 @@ def play():
 # RUN THE GAME #
 ################
 
-intro()
+commonWords = ["euros"]
+#feedback("oozes", "house")
+
+# intro()
 play()
-again = "y"
-while again != "n":
-  again = input("Play again? (Y/N): ").lower()
-  if again == "y":
-    play()
+# again = "y"
+# while again != "n":
+#   again = input("Play again? (Y/N): ").lower()
+#   if again == "y":
+#     play()

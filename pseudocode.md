@@ -39,6 +39,19 @@
 guess | (g)[U](e) -  -
 ```
 
+### duplicate letter bug
+example 1: solution is euros, guess is oozes
+in normal wordle, the first o should be yellow and the second should be gray because there's only one o in the answer
+- currently fixed in this `count` branch! correctly outputs `(o) -  - (e)[S]`
+- but on main branch, both Os would appear as "yellow", wrongly implying 2 Os in solution
+
+example 2: solution is house, guess is oozes
+in normal wordle, the second o would be green and the first o would be grey
+- still broken even on `count` branch! says `(o)[O] - (e)(s)` (should be same on main)
+    - problem is, if you're giving feedback only one letter at a time, then when you're responding to the first O you don't yet know that there's gonna be a green O later and that you therefore shouldn't mark this one yellow
+    - solution i guess is to loop through the word multiple times, first looking for greens, THEN looking for yellows... but that probably requires actually treating the response as a list of letters and not just a string of the literal feedback to print to screen
+
+
 ## TODO
 [x] add BOTH dictonaries
     [x] requests
