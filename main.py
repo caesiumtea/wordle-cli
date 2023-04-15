@@ -27,7 +27,6 @@ try:
       allWords.append(line)
 finally:
   longDict.close()
-print(allWords[0:30])
 
 
 # DEFINE FUNCTIONS #
@@ -69,29 +68,33 @@ def intro():
 
 # print instructions
 def instruct():
-  print("This game is based on Wordle from the New York Times.")
-  print("The goal is to guess the randomly-chosen secret word, which is " \
+  print("\nThis game is based on Wordle from the New York Times. " \
+        "The goal is to guess the randomly-chosen secret word, which is " \
         f"{wordLength} letters long, in {maxTries} tries or less.")
-  print("Just type in your word and press enter to guess!")
+  print("Just type in your word and press enter to guess!\n")
   print("For each guess, the game will show you how much your letters overlap" \
         " with the secret word.")
-  print("Your guess will be shown on the left, and the feedback on the right.")
-  print("A capital letter in square brackets like [A] means that you got that" \
-        " letter in exactly the right spot! This equals a green square in the" \
-        " original Wordle.")
-  print("A lowercase letter in parentheses like (a) means that this letter " \
+  print("Your guess will be shown on the left, and the feedback on the right." \
+        "\n")
+  print("* A capital letter in square brackets like [A] means that you got " \
+        "that letter in exactly the right spot! This equals a green square in" \
+        " the original Wordle.")
+  print("* A lowercase letter in parentheses like (a) means that this letter " \
         "does appear in the secret word, but not at this position. This " \
         "equals a yellow square in the original Wordle.")
-  print("A dash - in the feedback means that the letter at this position of " \
-        "your guess does not appear in the secret word at all.")
-  print("Use the feedback to guide your next guesses!")
-  print("Also, this game has some special commands you can enter in place of " \
-        "guesses.")
-  print("Type !quit to stop playing.")
-  print("Type !help to see these instructions again.")
-  print("Type !letters to see a list of letters you have not used in any " \
+  print("* A dash - in the feedback means that the letter at this position of" \
+        " your guess does not appear in the secret word at all.")
+  print("Use the feedback to guide your next guesses!\n")
+  print("If you use up all your guesses without finding the word, then the " \
+        "answer will be shown at the end.\n")
+  print("Also, there are some special commands you can enter " \
+        "while you're prompted to type a word.")
+  print("* Type !quit to stop playing.")
+  print("* Type !help to see these instructions again.")
+  print("* Type !letters to see a list of letters you have not used in any " \
         "guesses yet.")
   print("Good luck and have fun!")
+  print("=======================\n")
 
 
 # main gameplay loop
@@ -101,7 +104,7 @@ def play():
   tries = 0
   lettersGuessed = set()
 
-  print_board()
+  print_board(board)
 
   while tries < maxTries:
     triesLeft = maxTries - tries
@@ -122,7 +125,7 @@ def play():
         if letter not in lettersGuessed:
           notGuessed += letter + " "
       print("Letters not guessed yet: " + notGuessed)
-      print_board(board)
+      #print_board(board)
 
     elif guess == "!quit":
       break
@@ -144,10 +147,12 @@ def play():
       print_board(board)
 
     else:
-      print(f"Guess must be a real {wordLength}-letter word.")
+      print(f"Guess must be a real {wordLength}-letter word. Or, enter " \
+            "one of these commands: !help, !letters, !quit")
 
   if tries >= maxTries:
-    print("No guesses left.")
+    print("Sorry, you're out of guesses! :(")
+    print(f"The word was {solution.upper()}.")
   return
 
 
