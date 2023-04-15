@@ -52,3 +52,4 @@ guess | (g)[U](e) -  -
     [] ask the number of tries???
 [?] maybe process the dicitonaries to only have words of the right length
 [] COLORS
+[] use curses instead of regular UI
