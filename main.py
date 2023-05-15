@@ -1,5 +1,5 @@
 from random import choice
-import requests
+import requests, termcolor
 
 # VARIABLES #
 #############
@@ -40,22 +40,55 @@ def print_board(board):
     print(line)
 
 # for valid guesses, loop through word to generate feedback
+# solution guaranteed to be lowercase
 def feedback(guess, solution):
+  colors = []
+  # tempResponse = ""
+  listResponse = []
   response = " | "
   for i in range(wordLength):
     if guess[i] == solution[i]: 
       # green
-      response += f"[{guess[i].upper()}]"
+      colors.append("green")
+      # tempResponse += guess[i].lower()
+      listResponse.append(f"[{guess[i].upper()}]")
     elif guess[i] in solution:
       #yellow
-      inResponse = response.count(guess[i])
-      inWord = solution.count(guess[i])
-      if inResponse < inWord:
+      colors.append("yellow")
+      # tempResponse += guess[i].lower()
+      listResponse.append(f"({guess[i].lower()})")
+    else:
+      colors.append("")
+      # tempResponse += "-"
+      listResponse.append(" - ")
+  
+  # convert list of colors to final feedback, checking for duplicate letters
+  for i in range(wordLength):
+    # how many times this letter appears in green in response
+    greens = listResponse.count(f"[{guess[i].upper()}]")
+    # number of times letter is in solution is the max amount of times it can
+    # appear in green + yellow in response
+    inWord = solution.count(guess[i].lower()) 
+    # how many yellows of this letter in response so far?
+    # if it's there in lowercase then it's yellow
+    yellowsSoFar = response.count(guess[i].lower())
+
+    if colors[i] == "green":
+      response += listResponse[i]
+    elif colors[i] == "yellow":
+      # compare this letter's appearances so far in the response with the 
+      # number of times it's needed
+      # number of yellows needed = appearances in solution minus greens
+      if yellowsSoFar < inWord - greens:
         response += f"({guess[i].lower()})"
+      #
       else:
         response += " - "
+      
     else:
       response += " - "
+
+
   return guess + response
 
 # print opening text at start of game
@@ -105,7 +138,7 @@ def instruct():
 # main gameplay loop
 def play():
   board = ["Word:    -  -  -  -  - "]
-  solution = choice(commonWords) #choose a random word from short list
+  solution = choice(commonWords).lower() #choose a random word from short list
   tries = 0
   lettersGuessed = set()
 
