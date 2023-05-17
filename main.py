@@ -43,23 +43,19 @@ def print_board(board):
 # solution guaranteed to be lowercase
 def feedback(guess, solution):
   colors = []
-  # tempResponse = ""
   listResponse = []
   response = " | "
   for i in range(wordLength):
     if guess[i] == solution[i]: 
       # green
       colors.append("green")
-      # tempResponse += guess[i].lower()
       listResponse.append(f"[{guess[i].upper()}]")
     elif guess[i] in solution:
       #yellow
       colors.append("yellow")
-      # tempResponse += guess[i].lower()
       listResponse.append(f"({guess[i].lower()})")
     else:
       colors.append("")
-      # tempResponse += "-"
       listResponse.append(" - ")
   
   # convert list of colors to final feedback, checking for duplicate letters
@@ -197,8 +193,8 @@ def play():
 # RUN THE GAME #
 ################
 
-commonWords = ["euros"]
-#feedback("oozes", "house")
+# commonWords = ["euros"]
+# print(feedback("oozes", "house"))
 
 # intro()
 play()
