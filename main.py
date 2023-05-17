@@ -11,28 +11,40 @@ wordLength = 5
 # SET UP DICTIONARIES #
 #######################
 
-commonWords = []
-common = requests.get('https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-no-swears.txt')
-commonDict = common.text.splitlines()
-for word in commonDict:
-  if len(word) == wordLength:
-    commonWords.append(word)  
+def makeDicts():
+    commonWords = []
+    common = requests.get('https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-no-swears.txt')
+    commonDict = common.text.splitlines()
+    for word in commonDict:
+      if len(word) == wordLength:
+        commonWords.append(word)  
 
-allWords = []
-longDict = open("data/3of6game.txt", "r")
-try:
-  for line in longDict:
-    line = line.strip("\n$")
-    if len(line) == wordLength:
-      allWords.append(line)
-finally:
-  longDict.close()
+    allWords = []
+    longDict = open("data/3of6game.txt", "r")
+    try:
+      for line in longDict:
+        line = line.strip("\n$")
+        if len(line) == wordLength:
+          allWords.append(line)
+    finally:
+      longDict.close()
+    return commonWords,allWords
+
+commonWords, allWords = makeDicts()
 
 
 # DEFINE FUNCTIONS #
 ####################
 
 #TODO: helper function to generate starting board dynamically based on wordLength
+def startingBoard():
+  text = "Word:   " # 3 spaces for the divider pipe
+  # add extra padding if word is longer than the string "word:"
+  if wordLength > 5:
+    text += " " * (wordLength - 5)
+  text += " - " * wordLength
+  return [text]
+
 
 # draw game board
 def print_board(board):
@@ -77,14 +89,10 @@ def feedback(guess, solution):
       # number of yellows needed = appearances in solution minus greens
       if yellowsSoFar < inWord - greens:
         response += f"({guess[i].lower()})"
-      #
       else:
-        response += " - "
-      
+        response += " - "     
     else:
       response += " - "
-
-
   return guess + response
 
 # print opening text at start of game
@@ -133,7 +141,8 @@ def instruct():
 
 # main gameplay loop
 def play():
-  board = ["Word:    -  -  -  -  - "]
+  #board = ["Word:    -  -  -  -  - "]
+  board = startingBoard()
   solution = choice(commonWords).lower() #choose a random word from short list
   tries = 0
   lettersGuessed = set()
@@ -193,8 +202,9 @@ def play():
 # RUN THE GAME #
 ################
 
-# commonWords = ["euros"]
-# print(feedback("oozes", "house"))
+wordLength = 10
+commonWords, allWords = makeDicts()
+#print(startingBoard())
 
 # intro()
 play()

@@ -97,9 +97,9 @@ check the combined amuont of appearances in green plus in yellow so far, or othe
     [] letters not in the word
     [] list yellow letters
     [] list green letters
-[] fix it so that the "yellow" letters don't exceed actual occurrences of that letter (see "oozes" example)
+[x] fix it so that the "yellow" letters don't exceed actual occurrences of that letter (see "oozes" example)
 [] change the length of words
-    [] function to generate the blank board string
+    [x] function to generate the blank board string
     [] ask the user how long (either let them enter a number OR just ask easy/medium/hard)
     [] ask the number of tries???
 [x] maybe process the dicitonaries to only have words of the right length
