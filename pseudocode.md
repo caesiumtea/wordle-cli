@@ -105,4 +105,5 @@ check the combined amuont of appearances in green plus in yellow so far, or othe
 [x] maybe process the dicitonaries to only have words of the right length
     [] refactor this using list comprehensions???
 [] COLORS - termcolor package?
-[?] use curses instead of regular UI
+[] comment your code!!
+[?] ~~use curses instead of regular UI~~ nope too complicated

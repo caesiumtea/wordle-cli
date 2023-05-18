@@ -1,7 +1,7 @@
 from random import choice
 import requests, termcolor
 
-# VARIABLES #
+# GLOBAL VARIABLES #
 #############
 
 maxTries = 6
@@ -30,13 +30,11 @@ def makeDicts():
       longDict.close()
     return commonWords,allWords
 
-commonWords, allWords = makeDicts()
-
 
 # DEFINE FUNCTIONS #
 ####################
 
-#TODO: helper function to generate starting board dynamically based on wordLength
+# generate starting board dynamically based on wordLength
 def startingBoard():
   text = "Word:   " # 3 spaces for the divider pipe
   # add extra padding if word is longer than the string "word:"
@@ -47,7 +45,7 @@ def startingBoard():
 
 
 # draw game board
-def print_board(board):
+def printBoard(board):
   for line in board:
     print(line)
 
@@ -95,6 +93,56 @@ def feedback(guess, solution):
       response += " - "
   return guess + response
 
+# COMMANDS #
+############
+
+# change maxTries according to player input
+def changeTries(triesUsed):
+  global maxTries 
+  choice = input("How many guesses do you want to be allowed per game? ")
+  if choice.isdigit():
+    choice = int(choice)
+  else:
+    print("Tries must be a whole number.")
+    return
+  # maxTries must be greater than the current game's tries used, or else the
+  # game would already be over!
+  # we know triesUsed >= 0, so this line also checks that input > 0
+  if choice <= triesUsed:
+    print("You've already made that many guesses! Please choose a higher " \
+          "number. Or start a new game and use the !tries command before " \
+          "entering any guesses.")
+  else:
+    maxTries = choice
+    print(f"The maximum number of tries is now {choice}!")
+    #print(f"You have {choice - triesUsed} tries left in this game.")
+
+
+# change wordLength according to player input and start a new game
+# includes remaking dictionaries based on new word length
+def changeLength():
+  global wordLength, commonWords, allWords
+  choice = input("How many letters long should the target word be? " \
+                     "(must be between 3 and 9) ")
+  if choice.isdigit():
+    choice = int(choice)
+  else:
+    print("Length must be a whole number from 3 to 9.")
+    return
+  if choice < 3:
+    print("Length must be at least 3.")
+  elif choice > 9:
+    print("Length must be 9 or less.")
+  else: # 3 <= choice <= 9
+    wordLength = choice
+  print(f"New word will be {choice} letters long!")
+  commonWords, allWords = makeDicts()
+  play()
+
+
+# MESSAGES #
+############
+
 # print opening text at start of game
 def intro():
   print("WORDLE: Terminal Edition (unofficial!)")
@@ -135,9 +183,15 @@ def instruct():
   print("* Type !help to see these instructions again.")
   print("* Type !letters to see a list of letters you have not used in any " \
         "guesses yet.")
+  print("* Type !tries to change the max amount of guesses you can make.")
+  print("* Type !length to change how long of a word you want to guess. " \
+        "WARNING: This will QUIT your current game and start a new game.")
   print("Good luck and have fun!")
   print("=======================\n")
 
+
+# MAIN LOOP #
+#############
 
 # main gameplay loop
 def play():
@@ -147,7 +201,7 @@ def play():
   tries = 0
   lettersGuessed = set()
 
-  print_board(board)
+  printBoard(board)
 
   while tries < maxTries:
     triesLeft = maxTries - tries
@@ -160,7 +214,16 @@ def play():
     if guess == "!help":
       print("help")
       instruct()
-      print_board(board)
+      printBoard(board)
+    
+    elif guess == "!tries":
+      # tries isn't what we're setting it to, just passing it in to check that
+      # they don't ask for fewer tries than already taken
+      changeTries(tries)
+    
+    elif guess == "!length":
+      changeLength()
+      break
 
     elif guess == "!letters":
       notGuessed = ""
@@ -187,13 +250,13 @@ def play():
       for letter in guess:
         lettersGuessed.add(letter.upper())
       board.append(feedback(guess, solution))
-      print_board(board)
+      printBoard(board)
 
     else:
       print(f"Guess must be a real {wordLength}-letter word. Or, enter " \
             "one of these commands: !help, !letters, !quit")
 
-  if tries >= maxTries:
+  if tries >= maxTries and guess != solution:
     print("Sorry, you're out of guesses! :(")
     print(f"The word was {solution.upper()}.")
   return
@@ -202,9 +265,7 @@ def play():
 # RUN THE GAME #
 ################
 
-wordLength = 10
 commonWords, allWords = makeDicts()
-#print(startingBoard())
 
 # intro()
 play()
