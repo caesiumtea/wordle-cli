@@ -98,12 +98,12 @@ check the combined amuont of appearances in green plus in yellow so far, or othe
     [] list yellow letters
     [] list green letters
 [x] fix it so that the "yellow" letters don't exceed actual occurrences of that letter (see "oozes" example)
-[] change the length of words
+[x] change the length of words
     [x] function to generate the blank board string
-    [] ask the user how long (either let them enter a number OR just ask easy/medium/hard)
-    [] ask the number of tries???
+    [x] ask the user how long (either let them enter a number OR just ask easy/medium/hard)
+    [x] ask the number of tries???
 [x] maybe process the dicitonaries to only have words of the right length
     [] refactor this using list comprehensions???
-[] COLORS - termcolor package?
+[x] COLORS - termcolor package?
 [] comment your code!!
 [?] ~~use curses instead of regular UI~~ nope too complicated

@@ -80,13 +80,13 @@ def feedback(guess, solution):
     yellowsSoFar = response.count(guess[i].lower())
 
     if colors[i] == "green":
-      response += listResponse[i]
+      response += termcolor.colored(listResponse[i], None, "on_green")
     elif colors[i] == "yellow":
       # compare this letter's appearances so far in the response with the 
       # number of times it's needed
       # number of yellows needed = appearances in solution minus greens
       if yellowsSoFar < inWord - greens:
-        response += f"({guess[i].lower()})"
+        response += termcolor.colored(listResponse[i], "black", "on_light_yellow")
       else:
         response += " - "     
     else:
