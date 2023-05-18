@@ -55,15 +55,19 @@ def feedback(guess, solution):
   colors = []
   listResponse = []
   response = " | "
+  greenSet = set()
+  yellowSet = set()
   for i in range(wordLength):
     if guess[i] == solution[i]: 
       # green
       colors.append("green")
       listResponse.append(f"[{guess[i].upper()}]")
+      greenSet.add(guess[i].upper())
     elif guess[i] in solution:
       #yellow
       colors.append("yellow")
       listResponse.append(f"({guess[i].lower()})")
+      yellowSet.add(guess[i].upper())
     else:
       colors.append("")
       listResponse.append(" - ")
@@ -91,7 +95,7 @@ def feedback(guess, solution):
         response += " - "     
     else:
       response += " - "
-  return guess + response
+  return guess + response, greenSet, yellowSet
 
 # COMMANDS #
 ############
@@ -181,8 +185,8 @@ def instruct():
         "while you're prompted to type a word.")
   print("* Type !quit to stop playing.")
   print("* Type !help to see these instructions again.")
-  print("* Type !letters to see a list of letters you have not used in any " \
-        "guesses yet.")
+  print("* Type !letters to see which letters you have or have not used in " \
+        "any guesses yet.")
   print("* Type !tries to change the max amount of guesses you can make.")
   print("* Type !length to change how long of a word you want to guess. " \
         "WARNING: This will QUIT your current game and start a new game.")
@@ -200,6 +204,8 @@ def play():
   solution = choice(commonWords).lower() #choose a random word from short list
   tries = 0
   lettersGuessed = set()
+  greens = set()
+  yellows = set()
 
   printBoard(board)
 
@@ -227,11 +233,19 @@ def play():
 
     elif guess == "!letters":
       notGuessed = ""
+      guessed = ""
       for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
         if letter not in lettersGuessed:
           notGuessed += letter + " "
+        elif letter in greens:
+          guessed += termcolor.colored(letter, "green") + " "
+        elif letter in yellows:
+          guessed += termcolor.colored(letter, "yellow") + " "
+        elif letter in lettersGuessed:
+          guessed += letter + " "
+      print("Letters guessed: " + guessed)
       print("Letters not guessed yet: " + notGuessed)
-      #print_board(board)
+      
 
     elif guess == "!quit":
       break
@@ -249,7 +263,10 @@ def play():
       tries += 1
       for letter in guess:
         lettersGuessed.add(letter.upper())
-      board.append(feedback(guess, solution))
+      response, newGreens, newYellows = feedback(guess, solution)
+      board.append(response)
+      greens.update(newGreens)
+      yellows.update(newYellows)
       printBoard(board)
 
     else:

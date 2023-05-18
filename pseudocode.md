@@ -95,8 +95,8 @@ check the combined amuont of appearances in green plus in yellow so far, or othe
 [] tracking letters guessed
     [x] letters not yet guessed
     [] letters not in the word
-    [] list yellow letters
-    [] list green letters
+    [x] list yellow letters
+    [x] list green letters
 [x] fix it so that the "yellow" letters don't exceed actual occurrences of that letter (see "oozes" example)
 [x] change the length of words
     [x] function to generate the blank board string
