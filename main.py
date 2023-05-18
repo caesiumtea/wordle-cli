@@ -2,7 +2,7 @@ from random import choice
 import requests, termcolor
 
 # GLOBAL VARIABLES #
-#############
+####################
 
 maxTries = 6
 wordLength = 5
@@ -23,7 +23,7 @@ def makeDicts():
     longDict = open("data/3of6game.txt", "r")
     try:
       for line in longDict:
-        line = line.strip("\n$")
+        line = line.strip("\n$^&+!")
         if len(line) == wordLength:
           allWords.append(line)
     finally:
@@ -119,7 +119,6 @@ def changeTries(triesUsed):
   else:
     maxTries = choice
     print(f"The maximum number of tries is now {choice}!")
-    #print(f"You have {choice - triesUsed} tries left in this game.")
 
 
 # change wordLength according to player input and start a new game
@@ -199,7 +198,6 @@ def instruct():
 
 # main gameplay loop
 def play():
-  #board = ["Word:    -  -  -  -  - "]
   board = startingBoard()
   solution = choice(commonWords).lower() #choose a random word from short list
   tries = 0
@@ -284,10 +282,10 @@ def play():
 
 commonWords, allWords = makeDicts()
 
-# intro()
+intro()
 play()
-# again = "y"
-# while again != "n":
-#   again = input("Play again? (Y/N): ").lower()
-#   if again == "y":
-#     play()
+again = "y"
+while again != "n":
+  again = input("Play again? (Y/N): ").lower()
+  if again == "y":
+    play()

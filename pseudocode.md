@@ -106,4 +106,6 @@ check the combined amuont of appearances in green plus in yellow so far, or othe
     [] refactor this using list comprehensions???
 [x] COLORS - termcolor package?
 [] comment your code!!
+[] refactor the feedback function to use a helper so it's not so long
+[] refactor away global variables
 [?] ~~use curses instead of regular UI~~ nope too complicated
