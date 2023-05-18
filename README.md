@@ -22,7 +22,7 @@ Your guess will be shown on the left, and the feedback on the right.
 
 * A capital letter in square brackets like `[A]` means that you got that letter in exactly the right spot! This equals a green square in the original Wordle.
 * A lowercase letter in parentheses like `(a)` means that this letter does appear in the secret word, but not at this position. This equals a yellow square in the original Wordle.
-* A dash - in the feedback means that the letter at this position of your guess does not appear in the secret word at all.
+* A dash `-` in the feedback means that the letter at this position of your guess does not appear in the secret word at all.
 Use the feedback to guide your next guesses!
 
 If you use up all your guesses without finding the word, then the answer will be shown at the end.
