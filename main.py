@@ -12,20 +12,33 @@ wordLength = 5
 #######################
 
 def makeDicts():
+    # Initialize list of common words, which will be used to choose the secret
+    # word.
     commonWords = []
+    # Get word list from GitHub, as txt file 
+    # Word list: Google's 10,000 most common words
     common = requests.get('https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-no-swears.txt')
     commonDict = common.text.splitlines()
+    # List has one word on each line, so loop through lines to add each as a 
+    # list element.
     for word in commonDict:
+      # But only add the word if it's the correct length
       if len(word) == wordLength:
         commonWords.append(word)  
 
+    # Initialize bigger list of words, which will be used to check whether the 
+    # user's guess is a valid word.
     allWords = []
+    # Open local txt file containing bigger word list:
+    # "3 of 6, game version" from Alan Beale's 12dicts project
     longDict = open("data/3of6game.txt", "r")
     try:
       for line in longDict:
+        # Remove special characters used by the 12dicts format
         line = line.strip("\n$^&+!")
         if len(line) == wordLength:
           allWords.append(line)
+    # Ensure file is closed properly (even if there was an error in reading it)
     finally:
       longDict.close()
     return commonWords,allWords
