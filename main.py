@@ -31,8 +31,8 @@ def makeDicts():
     allWords = []
     # Open local txt file containing bigger word list:
     # "3 of 6, game version" from Alan Beale's 12dicts project
-    longDict = open("data/3of6game.txt", "r")
     try:
+      longDict = open("data/3of6game.txt", "r")
       for line in longDict:
         # Remove special characters used by the 12dicts format
         line = line.strip("\n$^&+!")
