@@ -173,7 +173,8 @@ def intro():
     " ______              _           __  ____   ___ __  _         ",
     "/_  __/__ ______ _  (_)__  ___ _/ / / __/__/ (_) /_(_)__  ___ ",
     " / / / -_) __/  ' \/ / _ \/ _ `/ / / _// _  / / __/ / _ \/ _ \\",
-    "/_/  \__/_/ /_/_/_/_/_//_/\_,_/_/ /___/\_,_/_/\__/_/\___/_//_/"
+    "/_/  \__/_/ /_/_/_/_/_//_/\_,_/_/ /___/\_,_/_/\__/_/\___/_//_/",
+    "=============================================================="
 
   ]
   for line in title:
@@ -192,27 +193,12 @@ def intro():
 
 # print instructions
 def instruct():
-  print("\nThis game is based on Wordle from the New York Times. " \
-        "The goal is to guess the randomly-chosen secret word, which is " \
-        f"{wordLength} letters long, in {maxTries} tries or less.")
-  print("Just type in your word and press enter to guess!\n")
-  print("For each guess, the game will show you how much your letters overlap" \
-        " with the secret word.")
-  print("Your guess will be shown on the left, and the feedback on the right." \
-        "\n")
-  print("* A " + termcolor.colored("GREEN", None, "on_green") 
-        + " capital letter in square brackets like " 
-        + termcolor.colored("[A]", None, "on_green") 
-        + " means that you got that letter in exactly the right spot!")
-  print("* A " + termcolor.colored("YELLOW", "black", "on_light_yellow")
-        + " lowercase letter in parentheses like "
-        + termcolor.colored("(a)", "black", "on_light_yellow")
-        + "means that this letter " \
-        "does appear in the secret word, but not at this position.")
-  print("* A plain UNCOLORED letter does not appear in the secret word at all.")
-  print("Use the feedback to guide your next guesses!\n")
-  print("If you use up all your guesses without finding the word, then the " \
-        "answer will be shown at the end.\n")
+  print("\nThis game is based on Wordle from the New York Times. ")
+  print("* Letters in the right place appear in "
+        + termcolor.colored("[GREEN]", None, "on_green"))
+  print("* Letters in the wrong place appear in "
+        + termcolor.colored("(yellow)", "black", "on_light_yellow"))
+  print("* Incorrect letters are uncolored and without brackets\n")
   print("Also, there are some special commands you can enter " \
         "while you're prompted to type a word.")
   print("* Type !quit to stop playing.")
@@ -223,7 +209,8 @@ def instruct():
   print("* Type !length to change how long of a word you want to guess. " \
         "WARNING: This will QUIT your current game and start a new game.")
   print("Good luck and have fun!")
-  print("=======================\n")
+  termcolor.cprint(
+    "===============================================\n", "green", None)
 
 
 # MAIN LOOP #
