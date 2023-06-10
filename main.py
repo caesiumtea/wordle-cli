@@ -47,16 +47,6 @@ def makeDicts():
 # DEFINE FUNCTIONS #
 ####################
 
-# generate starting board dynamically based on wordLength
-def startingBoard():
-  text = "Word:   " # 3 spaces for the divider pipe
-  # add extra padding if word is longer than the string "word:"
-  if wordLength > 5:
-    text += " " * (wordLength - 5)
-  text += " - " * wordLength
-  return [text]
-
-
 # draw game board
 def printBoard(board):
   for line in board:
@@ -67,7 +57,7 @@ def printBoard(board):
 def feedback(guess, solution):
   colors = []
   listResponse = []
-  response = " | "
+  response = ""
   greenSet = set()
   yellowSet = set()
   for i in range(wordLength):
@@ -83,7 +73,7 @@ def feedback(guess, solution):
       yellowSet.add(guess[i].upper())
     else:
       colors.append("")
-      listResponse.append(" - ")
+      listResponse.append(f" {guess[i].lower()} ")
   
   # convert list of colors to final feedback, checking for duplicate letters
   for i in range(wordLength):
@@ -105,10 +95,10 @@ def feedback(guess, solution):
       if yellowsSoFar < inWord - greens:
         response += termcolor.colored(listResponse[i], "black", "on_light_yellow")
       else:
-        response += " - "     
+        response += f" {listResponse[i][1]} "
     else:
-      response += " - "
-  return guess + response, greenSet, yellowSet
+      response += listResponse[i]
+  return response, greenSet, yellowSet
 
 # COMMANDS #
 ############
@@ -218,7 +208,7 @@ def instruct():
 
 # main gameplay loop
 def play():
-  board = startingBoard()
+  board = [" - "*wordLength]
   solution = choice(commonWords).lower() #choose a random word from short list
   tries = 0
   lettersGuessed = set()
