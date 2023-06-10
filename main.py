@@ -230,20 +230,18 @@ def play():
       print(f"You have {triesLeft} more tries to guess the secret word.")
     guess = input("Guess a word: ").lower()
 
+    # COMMANDS
     if guess == "!help":
       print("help")
       instruct()
       printBoard(board)
-    
     elif guess == "!tries":
       # tries isn't what we're setting it to, just passing it in to check that
       # they don't ask for fewer tries than already taken
       changeTries(tries)
-    
     elif guess == "!length":
       changeLength()
       break
-
     elif guess == "!letters":
       notGuessed = ""
       guessed = ""
@@ -258,20 +256,10 @@ def play():
           guessed += letter + " "
       print("Letters guessed: " + guessed)
       print("Letters not guessed yet: " + notGuessed)
-      
-
     elif guess == "!quit":
       break
-
-    elif guess == solution:
-      tries += 1
-      print("Correct! Great job!")
-      if tries == 1:
-        print("You guessed the word on your first try! Wow!")
-      else:
-        print(f"You found the word in {tries} tries!")
-      break
-
+    
+    # ACTUAL GUESSES
     elif len(guess) == wordLength and guess in allWords:
       tries += 1
       for letter in guess:
@@ -281,6 +269,13 @@ def play():
       greens.update(newGreens)
       yellows.update(newYellows)
       printBoard(board)
+      if guess == solution:
+        print("Correct! Great job!")
+        if tries == 1:
+          print("You guessed the word on your first try! Wow!")
+        else:
+          print(f"You found the word in {tries} tries!")
+        break
 
     else:
       print(f"Guess must be a real {wordLength}-letter word. Or, enter " \
