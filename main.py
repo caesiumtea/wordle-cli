@@ -182,14 +182,16 @@ def instruct():
         " with the secret word.")
   print("Your guess will be shown on the left, and the feedback on the right." \
         "\n")
-  print("* A capital letter in square brackets like [A] means that you got " \
-        "that letter in exactly the right spot! This equals a green square in" \
-        " the original Wordle.")
-  print("* A lowercase letter in parentheses like (a) means that this letter " \
-        "does appear in the secret word, but not at this position. This " \
-        "equals a yellow square in the original Wordle.")
-  print("* A dash - in the feedback means that the letter at this position of" \
-        " your guess does not appear in the secret word at all.")
+  print("* A " + termcolor.colored("GREEN", None, "on_green") 
+        + " capital letter in square brackets like " 
+        + termcolor.colored("[A]", None, "on_green") 
+        + " means that you got that letter in exactly the right spot!")
+  print("* A " + termcolor.colored("YELLOW", "black", "on_light_yellow")
+        + " lowercase letter in parentheses like "
+        + termcolor.colored("(a)", "black", "on_light_yellow")
+        + "means that this letter " \
+        "does appear in the secret word, but not at this position.")
+  print("* A plain UNCOLORED letter does not appear in the secret word at all.")
   print("Use the feedback to guide your next guesses!\n")
   print("If you use up all your guesses without finding the word, then the " \
         "answer will be shown at the end.\n")
